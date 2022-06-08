@@ -3,7 +3,6 @@ using ConsoleApp.Data;
 using ConsoleApp.Helpers;
 using ConsoleApp.Interfaces;
 using ConsoleApp.Printers;
-using ConsoleApp;
 
 Console.ForegroundColor = ConsoleColor.DarkGreen;
 var institutions = new List<EducationalInstitution>();
@@ -15,9 +14,5 @@ var mainMenu = new Menu
     Name = "educational institution",
 };
 foreach (var institution in institutions)
-    mainMenu.Items.Add((institution.Name, () =>
-    {
-        EducationalInstitutionContainer.Institution = institution;
-        new EducationalInstitutionPrinter(institution).Print();
-    }));
+    mainMenu.Items.Add((institution.Name, () => new EducationalInstitutionPrinter(institution).Print()));
 mainMenu.Print();
