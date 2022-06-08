@@ -10,15 +10,20 @@ namespace Backend.Interfaces
 
         string? Patronymic {get; set;}
 
-        ushort Course { get; set; }
+        /// <summary>
+        /// The total number of semesters. For example:
+        /// Course = 3; Semester = 1; => FullSemester = 5
+        /// Course = 3; Semester = 2; => FullSemester = 6
+        /// </summary>
+        ushort FullSemester { get; set; }
 
-        bool IsLastCourse { get; }
+        bool IsLastSemester { get; }
 
         bool NeedsToPassAnExternalExam { get; }
 
         double MinPassScore { get; }
 
-        IDictionary<string, double> Marks { get; set; }
+        IMarksContainer Marks { get; set; }
 
         TypeOfStudy TypeOfStudy { get; set; }
     }

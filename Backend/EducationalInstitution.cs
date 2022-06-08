@@ -4,15 +4,15 @@ using Backend.Other;
 
 namespace Backend
 {
-    public class EducationalInstitution<T> where T: IStudent
+    public class EducationalInstitution
     {
         public string Name { get; set; } = string.Empty;
 
-        public ICollection<T> Students { get; set; } = new List<T>();
+        public ICollection<IStudent> Students { get; set; } = new List<IStudent>();
 
-        public IEnumerable<T> GetOrderedStudents(StudentOrderingType orderBy, StudentOrderingType? thenBy)
+        public IEnumerable<IStudent> GetOrderedStudents(StudentOrderingType orderBy, StudentOrderingType? thenBy)
         {
-            static Func<T, object> GetSelectorFromType(StudentOrderingType type)
+            static Func<IStudent, object> GetSelectorFromType(StudentOrderingType type)
             {
                 var typeNumber = Math.Abs((short)type);
                 return typeNumber switch
@@ -22,7 +22,7 @@ namespace Backend
                 };
             }
 
-            Func<Func<T, object>, IOrderedEnumerable<T>> orderByFunc 
+            Func<Func<IStudent, object>, IOrderedEnumerable<IStudent>> orderByFunc 
                 = orderBy < 0 ? Students.OrderByDescending : Students.OrderBy;
             var result = orderByFunc.Invoke(GetSelectorFromType(orderBy));
             if (thenBy != null)
