@@ -37,7 +37,9 @@ namespace Backend.Containers
 
         public void Delete(string course)
         {
-            _marks.Remove(course);
+            var result = _marks.Remove(course);
+            if (!result)
+                throw new KeyNotFoundException($"The course with name {course} was not found");
         }
     }
 }

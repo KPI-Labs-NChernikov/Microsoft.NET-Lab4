@@ -2,6 +2,7 @@
 using Backend.Handlers;
 using Backend.Interfaces;
 using Backend.Other;
+using Backend.Students;
 using ConsoleApp.Helpers;
 using ConsoleApp.Interfaces;
 
@@ -35,8 +36,14 @@ namespace ConsoleApp.Printers
                         PrintStudents();
                         Print();
                         }),
-                    ("Add a student", null),
-                    ("Update a student", null),
+                    ("Add a student", () => {
+                        AddStudent();
+                        Print();
+                        }),
+                    ("Update a student", () => {
+                        UpdateStudents();
+                        Print();
+                        }),
                     ("Delete a student", () => {
                         DeleteStudent();
                         Print();
@@ -54,7 +61,6 @@ namespace ConsoleApp.Printers
                 Name = "student"
             };
             foreach (var student in Students)
-            {
                 menu.Items.Add((HelperMethods.GetStudentString(student), () =>
                 {
                     Console.Clear();
@@ -63,8 +69,57 @@ namespace ConsoleApp.Printers
                     HelperMethods.Continue();
                 }
                 ));
-            }
             menu.Print();
+        }
+
+        public void AddStudent()
+        {
+            Console.Clear();
+            HelperMethods.PrintHeader(HelperMethods.GetHeader($"{_institution.Name}: Students - Add"));
+            var student = SelectStudentType();
+            Console.WriteLine();
+            var printer = new StudentPrinter(student);
+            printer.UpdateName();
+            Console.WriteLine();
+            printer.UpdateCourse();
+            Console.WriteLine();
+            printer.UpdateSemester();
+            Console.WriteLine();
+            printer.UpdateTypeOfStudy();
+            Console.WriteLine();
+            _institution.Students.Add(student);
+            Console.WriteLine("The student has been successfully added:");
+            printer.Print();
+            Console.WriteLine();
+            HelperMethods.Continue();
+        }
+
+        private static IStudent SelectStudentType()
+        {
+            IStudent result = null!;
+            var menu = new LiteMenu
+            {
+                Name = "type of the student",
+                Items = new List<(string, Action?)>
+                {
+                    ("University student", () => result = new UniversityStudent()),
+                    ("School student", () => result = new SchoolStudent())
+                }
+            };
+            menu.Print();
+            return result;
+        }
+
+        public void UpdateStudents()
+        {
+            var menu = new Menu
+            {
+                Header = HelperMethods.GetHeader($"{_institution.Name}: Students - Update"),
+                Name = "student to update"
+            };
+            foreach (var student in Students)
+                menu.Items.Add((HelperMethods.GetStudentString(student), () => new StudentPrinter(student).UpdateStudent()));
+            menu.Print(true);
         }
 
         public void DeleteStudent()

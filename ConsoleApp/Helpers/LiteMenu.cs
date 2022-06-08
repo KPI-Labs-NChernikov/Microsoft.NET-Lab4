@@ -8,7 +8,7 @@
 
         public ConsoleColor Color { get; set; } = ConsoleColor.DarkGreen;
 
-        public IEnumerable<(string Text, Action? Action)> Items { get; set; } = new List<(string Text, Action? Action)>();
+        public ICollection<(string Text, Action? Action)> Items { get; set; } = new List<(string Text, Action? Action)>();
 
         public void Print()
         {
