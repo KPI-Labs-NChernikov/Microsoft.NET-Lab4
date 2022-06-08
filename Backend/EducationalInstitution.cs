@@ -18,7 +18,7 @@ namespace Backend
                 return typeNumber switch
                 {
                     2 => s => new StudentStatsHandler(s).AvgMark,
-                    _ => s => s.Course,
+                    _ => s => s.FullSemester,
                 };
             }
 
