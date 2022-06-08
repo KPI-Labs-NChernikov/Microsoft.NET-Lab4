@@ -8,10 +8,10 @@
 
         public IReadOnlyDictionary<string, double> Marks { get; }
 
-        void AddMark(string course, double mark);
+        void Add(string course, double mark);
 
-        void UpdateMark(string course, double mark);
+        void Update(string course, double mark);
 
-        void DeleteMark(string course);
+        void Delete(string course);
     }
 }

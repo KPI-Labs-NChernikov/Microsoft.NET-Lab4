@@ -21,21 +21,21 @@ namespace Backend.Containers
 
         private bool IsValid(double mark) => mark >= Min && mark <= Max;
 
-        public void AddMark(string course, double mark)
+        public void Add(string course, double mark)
         {
             if (!IsValid(mark))
                 throw new ArgumentOutOfRangeException(nameof(mark), $"The mark should be in range from {Min} to {Max}");
             _marks.Add(course, mark);
         }
 
-        public void UpdateMark(string course, double mark)
+        public void Update(string course, double mark)
         {
             if (!IsValid(mark))
                 throw new ArgumentOutOfRangeException(nameof(mark), $"The mark should be in range from {Min} to {Max}");
             _marks[course] = mark;
         }
 
-        public void DeleteMark(string course)
+        public void Delete(string course)
         {
             _marks.Remove(course);
         }

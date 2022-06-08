@@ -37,12 +37,12 @@ namespace Backend.Handlers
             }
         }
 
-        public IDictionary<string, double> Marks => _student.Marks;
+        public IReadOnlyDictionary<string, double> Marks => _student.Marks.Marks;
 
         public virtual bool CanContinueLearning(out string? description)
         {
             bool result = true;
-            if (!_student.Marks.Values.All(m => m >= _student.MinPassScore))
+            if (!_student.Marks.Marks.Values.All(m => m >= _student.MinPassScore))
             {
                 result = false;
                 description = $"The student has not completed the last course successfully - " +

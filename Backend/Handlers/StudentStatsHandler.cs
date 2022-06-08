@@ -7,10 +7,10 @@ namespace Backend.Handlers
         public StudentStatsHandler(IStudent student) : base(student)
         { }
 
-        public double MinMark => _student.Marks.Values.Min();
+        public double MinMark => _student.Marks.Marks.Values.Min();
 
-        public double MaxMark => _student.Marks.Values.Max();
+        public double MaxMark => _student.Marks.Marks.Values.Max();
 
-        public double AvgMark => _student.Marks.Values.Average();
+        public double AvgMark => _student.Marks.Marks.Values.Average();
     }
 }
