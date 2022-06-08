@@ -1,6 +1,7 @@
 ﻿using Backend;
 using Backend.Handlers;
 using Backend.Interfaces;
+using Backend.Other;
 using ConsoleApp.Helpers;
 using ConsoleApp.Interfaces;
 
@@ -9,6 +10,9 @@ namespace ConsoleApp.Printers
     public class EducationalInstitutionPrinter : IPrinter
     {
         private readonly EducationalInstitution _institution;
+
+        private IEnumerable<IStudent> Students 
+            => _institution.GetOrderedStudents(StudentOrderingType.CourseAsc, StudentOrderingType.AvgMarkDesc);
 
         public EducationalInstitutionPrinter(EducationalInstitution institution)
         {
@@ -49,9 +53,16 @@ namespace ConsoleApp.Printers
                 Header = HelperMethods.GetHeader($"{_institution.Name}: Students"),
                 Name = "student"
             };
-            foreach (var student in _institution.Students)
+            foreach (var student in Students)
             {
-                menu.Items.Add((HelperMethods.GetStudentString(student), () => new StudentPrinter(student).Print()));
+                menu.Items.Add((HelperMethods.GetStudentString(student), () =>
+                {
+                    Console.Clear();
+                    HelperMethods.PrintHeader(HelperMethods.GetHeader($"Student"));
+                    new StudentPrinter(student).Print();
+                    HelperMethods.Continue();
+                }
+                ));
             }
             menu.Print();
         }
@@ -60,9 +71,9 @@ namespace ConsoleApp.Printers
         {
             Console.Clear();
             HelperMethods.PrintHeader(HelperMethods.GetHeader($"{_institution.Name}: Students - Delete"));
-            for (int i = 0; i < _institution.Students.Count; i++)
+            for (int i = 0; i < Students.Count(); i++)
             {
-                Console.WriteLine($"{i + 1}. {HelperMethods.GetStudentString(_institution.Students.ElementAt(i))}");
+                Console.WriteLine($"{i + 1}. {HelperMethods.GetStudentString(Students.ElementAt(i))}");
             }
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine($"0. Quit{Environment.NewLine}");
@@ -82,7 +93,7 @@ namespace ConsoleApp.Printers
                 Console.WriteLine("DELETE:");
                 Console.ForegroundColor = ConsoleColor.Red;
                 number--;
-                var student = _institution.Students.ElementAt(number);
+                var student = Students.ElementAt(number);
                 var name = new StudentHandler(student).FullName;
                 var dialog = new Dialog
                 {

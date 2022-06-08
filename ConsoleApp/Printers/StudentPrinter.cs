@@ -19,8 +19,6 @@ namespace ConsoleApp.Printers
 
         public void Print()
         {
-            Console.Clear();
-            HelperMethods.PrintHeader(HelperMethods.GetHeader($"Student"));
             Console.WriteLine($"{_handler.FullName}:");
             Console.WriteLine($"Course: {_handler.Course}; Semester: {_handler.Semester}");
             Console.WriteLine($"Type of study: {_student.TypeOfStudy}");
@@ -33,7 +31,6 @@ namespace ConsoleApp.Printers
             Console.WriteLine($"Can continue studying? {(continueStudy ? "yes" : "no")}");
             Console.WriteLine(description);
             Console.WriteLine();
-            HelperMethods.Continue();
         }
     }
 }

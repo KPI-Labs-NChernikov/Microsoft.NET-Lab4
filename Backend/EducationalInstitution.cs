@@ -28,7 +28,7 @@ namespace Backend
             if (thenBy != null)
             {
                 orderByFunc = thenBy < 0 ? result.ThenByDescending : result.ThenBy;
-                result = orderByFunc.Invoke(GetSelectorFromType(orderBy));
+                result = orderByFunc.Invoke(GetSelectorFromType(thenBy.Value));
             }
             return result;
         }
