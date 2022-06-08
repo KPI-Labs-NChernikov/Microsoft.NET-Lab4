@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Backend.Containers.MarksContainer">
+    <Position X="0.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAABAAAAAAEAoAAAAAAAEAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Containers\MarksContainer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Backend.Handlers.StudentHandler">
+    <Position X="5.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAQAAAAIAAIIAAAAAACAAAAAAAgAQAAAAAAAA=</HashCode>
+      <FileName>Handlers\StudentHandler.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_student" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Backend.Handlers.StudentStatsHandler">
+    <Position X="5.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAAAACAAAA=</HashCode>
+      <FileName>Handlers\StudentStatsHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Backend.Students.SchoolStudent">
+    <Position X="7.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgGEAABAIAAAAAAAAAAAAAAAhAAAAgAQAAAAAAAg=</HashCode>
+      <FileName>Students\SchoolStudent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Backend.Students.UniversityStudent">
+    <Position X="9.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAGEAABAIAAAAAAAAAAAAAAAhAAAAgAQAAAAIAAg=</HashCode>
+      <FileName>Students\UniversityStudent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Backend.EducationalInstitution">
+    <Position X="11.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIABAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EducationalInstitution.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Backend.Interfaces.IMarksContainer">
+    <Position X="0.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAABAAAAAAEAAAAAAAAAEAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IMarksContainer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Backend.Interfaces.IStudent">
+    <Position X="8.25" Y="3.75" Width="1.5" />
+    <AssociationLine Name="Marks" Type="Backend.Interfaces.IMarksContainer" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="4.25" />
+        <Point X="7.296" Y="4.25" />
+        <Point X="7.296" Y="2.851" />
+        <Point X="2.25" Y="2.851" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAGAAABAIAAAAAAAAAAAAAAAhAAAAgAQAAAAAAAg=</HashCode>
+      <FileName>Interfaces\IStudent.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Marks" />
+      <Property Name="TypeOfStudy" />
+    </ShowAsAssociation>
+  </Interface>
+  <Enum Name="Backend.Other.StudentOrderingType">
+    <Position X="5.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAABBAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Other\StudentOrderingType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Backend.Other.TypeOfStudy">
+    <Position X="7.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAQAAAAAAAAAAQAAAQACgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Other\TypeOfStudy.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
