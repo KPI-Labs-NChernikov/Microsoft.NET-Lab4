@@ -47,6 +47,9 @@
       <HashCode>AAIABAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>EducationalInstitution.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Students" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Interface Name="Backend.Interfaces.IMarksContainer">
     <Position X="0.75" Y="0.75" Width="1.5" />
