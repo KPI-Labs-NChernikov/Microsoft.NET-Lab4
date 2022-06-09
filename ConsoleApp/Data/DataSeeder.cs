@@ -28,9 +28,9 @@ namespace ConsoleApp.Data
             {
                 Name = "National Technical University of Ukraine \"Igor Sikorsky Kyiv Polytechnic Institute\""
             };
-            var universityStudentHandlers = new StudentHandler[]
+            var universityStudents = new UniversityStudent[]
             {
-                new StudentHandler(new UniversityStudent
+                new UniversityStudent
                 {
                     FirstName = "Ivan",
                     LastName = "Ivanov",
@@ -44,13 +44,10 @@ namespace ConsoleApp.Data
                         { "English", 97.7 },
                         { "Databases", 95 },
                         { "Psychology", 80 },
-                    })
-                })
-                {
-                    Course = 2,
-                    Semester = 1
+                    }),
+                    FullSemester = 3
                 },
-                new StudentHandler(new UniversityStudent
+                new UniversityStudent
                 {
                     FirstName = "Petro",
                     LastName = "Sydorenko",
@@ -64,13 +61,10 @@ namespace ConsoleApp.Data
                         { "English", 95 },
                         { "Computer graphics", 100 },
                         { "Physical education", 86 },
-                    })
-                })
-                {
-                    Course = 3,
-                    Semester = 1
+                    }),
+                    FullSemester = 5
                 },
-                new StudentHandler(new UniversityStudent
+                new UniversityStudent
                 {
                     FirstName = "Joe",
                     LastName = "Barbaro",
@@ -83,13 +77,10 @@ namespace ConsoleApp.Data
                         { "English", 98 },
                         { "Computer graphics", 65 },
                         { "Practise", 80 },
-                    })
-                })
-                {
-                    Course = 6,
-                    Semester = 2
-                },                
-                new StudentHandler(new UniversityStudent
+                    }),
+                    FullSemester = 12
+                },           
+                new UniversityStudent
                 {
                     FirstName = "Petro",
                     LastName = "Petrenko",
@@ -103,13 +94,10 @@ namespace ConsoleApp.Data
                         { "English", 99 },
                         { "Computer graphics", 100 },
                         { "Practise", 86 },
-                    })
-                })
-                {
-                    Course = 4,
-                    Semester = 2
-                },                
-                new StudentHandler(new UniversityStudent
+                    }),
+                    FullSemester = 8
+                },             
+                new UniversityStudent
                 {
                     FirstName = "Pavlo",
                     LastName = "Pavlenko",
@@ -123,24 +111,21 @@ namespace ConsoleApp.Data
                         { "English", 99 },
                         { "Further mathematics", 100 },
                         { "Physical education", 100 },
-                    })
-                })
-                {
-                    Course = 1,
-                    Semester = 1
+                    }),
+                    FullSemester = 1
                 },
             };
-            foreach (var studentHandler in universityStudentHandlers)
-                institution.Students.Add(studentHandler.Student);
+            foreach (var student in universityStudents)
+                institution.Students.Add(student);
             Institutions.Add(institution);
 
             institution = new EducationalInstitution
             {
                 Name = "Specialized school №71 with English specialization"
             };
-            var schoolStudentHandlers = new StudentHandler[]
+            var schoolStudents = new SchoolStudent[]
             {
-                new StudentHandler(new SchoolStudent
+                new SchoolStudent
                 {
                     FirstName = "Ivan",
                     LastName = "Ivanenko",
@@ -155,13 +140,10 @@ namespace ConsoleApp.Data
                         { "Ukrainian", 6 },
                         { "German", 8 },
                         { "Literature", 7}
-                    })
-                })
-                {
-                    Course = 5,
-                    Semester = 1
+                    }),
+                    FullSemester = 9
                 },
-                new StudentHandler(new SchoolStudent
+                new SchoolStudent
                 {
                     FirstName = "Mykola",
                     LastName = "Petrov",
@@ -179,13 +161,10 @@ namespace ConsoleApp.Data
                         { "Ukrainian", 8 },
                         { "German", 8 },
                         { "Literature", 9}
-                    })
-                })
-                {
-                    Course = 9,
-                    Semester = 2
+                    }),
+                    FullSemester = 18
                 },
-                new StudentHandler(new SchoolStudent
+                new SchoolStudent
                 {
                     FirstName = "Liia",
                     LastName = "Petrenko",
@@ -203,13 +182,10 @@ namespace ConsoleApp.Data
                         { "Ukrainian", 1 },
                         { "German", 5 },
                         { "Literature", 7}
-                    })
-                })
-                {
-                    Course = 11,
-                    Semester = 2
+                    }),
+                    FullSemester = 22
                 },
-                new StudentHandler(new SchoolStudent
+                new SchoolStudent
                 {
                     FirstName = "Mariia",
                     LastName = "Petrova",
@@ -227,13 +203,10 @@ namespace ConsoleApp.Data
                         { "Ukrainian", 10 },
                         { "German", 10 },
                         { "Literature", 11}
-                    })
-                })
-                {
-                    Course = 11,
-                    Semester = 2
+                    }),
+                    FullSemester = 22
                 },
-                new StudentHandler(new SchoolStudent
+                new SchoolStudent
                 {
                     FirstName = "Kateryna",
                     LastName = "Panasenko",
@@ -251,15 +224,12 @@ namespace ConsoleApp.Data
                         { "Ukrainian", 10 },
                         { "German", 10 },
                         { "Literature", 12}
-                    })
-                })
-                {
-                    Course = 11,
-                    Semester = 1
-                },
+                    }),
+                    FullSemester = 21
+                }
             };
-            foreach (var studentHandler in schoolStudentHandlers)
-                institution.Students.Add(studentHandler.Student);
+            foreach (var student in schoolStudents)
+                institution.Students.Add(student);
             Institutions.Add(institution);
         }
     }

@@ -7,8 +7,6 @@ namespace Backend.Handlers
     {
         protected readonly IStudent _student;
 
-        public IStudent Student => _student;
-
         public StudentHandler(IStudent student)
         {
             _student = student;
@@ -16,7 +14,29 @@ namespace Backend.Handlers
 
         public string FullName => $"{_student.LastName} {_student.FirstName} {_student.Patronymic}".TrimEnd();
 
-        public TypeOfStudy TypeOfStudy => _student.TypeOfStudy;
+        public string FirstName
+        {
+            get => _student.FirstName;
+            set => _student.FirstName = value;
+        }
+
+        public string LastName
+        {
+            get => _student.LastName;
+            set => _student.LastName = value;
+        }
+
+        public string? Patronymic
+        {
+            get => _student.Patronymic;
+            set => _student.Patronymic = value;
+        }
+
+        public TypeOfStudy TypeOfStudy
+        {
+            get => _student.TypeOfStudy;
+            set => _student.TypeOfStudy = value;
+        }
 
         public ushort Course
         {

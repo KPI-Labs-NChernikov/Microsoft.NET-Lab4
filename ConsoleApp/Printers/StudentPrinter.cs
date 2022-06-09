@@ -8,27 +8,29 @@ namespace ConsoleApp.Printers
 {
     public class StudentPrinter : IPrinter
     {
-        private readonly IStudent _student;
+        private readonly StudentStatsHandler _statsHandler;
 
-        private readonly StudentStatsHandler _handler;
+        private readonly StudentMarksHandler _marksHandler;
 
         public StudentPrinter(IStudent student)
         {
-            _student = student ?? throw new ArgumentNullException(nameof(student));
-            _handler = new StudentStatsHandler(student);
+            if (student == null)
+                throw new ArgumentNullException(nameof(student));
+            _statsHandler = new StudentStatsHandler(student);
+            _marksHandler = new StudentMarksHandler(student);
         }
 
         public void Print()
         {
-            Console.WriteLine($"{_handler.FullName}:");
-            Console.WriteLine($"Course: {_handler.Course}; Semester: {_handler.Semester}");
-            Console.WriteLine($"Type of study: {_student.TypeOfStudy}");
+            Console.WriteLine($"{_statsHandler.FullName}:");
+            Console.WriteLine($"Course: {_statsHandler.Course}; Semester: {_statsHandler.Semester}");
+            Console.WriteLine($"Type of study: {_statsHandler.TypeOfStudy}");
             Console.WriteLine("Marks:");
-            foreach (var mark in _handler.Marks)
+            foreach (var mark in _statsHandler.Marks)
                 Console.WriteLine($"\t{mark.Key}: {mark.Value:F2}");
-            Console.WriteLine($"Min: {_handler.MinMark:F2} Average: {_handler.AvgMark:F2} Max: {_handler.MaxMark:F2}");
+            Console.WriteLine($"Min: {_statsHandler.MinMark:F2} Average: {_statsHandler.AvgMark:F2} Max: {_statsHandler.MaxMark:F2}");
             Console.WriteLine();
-            var continueStudy = _handler.CanContinueLearning(out string? description);
+            var continueStudy = _statsHandler.CanContinueLearning(out string? description);
             Console.WriteLine($"Can continue studying? {(continueStudy ? "yes" : "no")}");
             Console.WriteLine(description);
             Console.WriteLine();
@@ -96,14 +98,14 @@ namespace ConsoleApp.Printers
                 Name = "first name",
                 ErrorMessage = WhitespaceValidationErrorMessage
             };
-            _student.FirstName = form.GetString();
+            _statsHandler.FirstName = form.GetString();
             form.Name = "last name";
-            _student.LastName = form.GetString();
+            _statsHandler.LastName = form.GetString();
             form.Name = "patronymic (or leave empty if none)";
             form.IsValid = null;
-            _student.Patronymic = form.GetString();
-            if (_student.Patronymic == string.Empty)
-                _student.Patronymic = null;
+            _statsHandler.Patronymic = form.GetString();
+            if (_statsHandler.Patronymic == string.Empty)
+                _statsHandler.Patronymic = null;
         }
 
         public void UpdateCourse()
@@ -115,7 +117,7 @@ namespace ConsoleApp.Printers
             };
             try
             {
-                _handler.Course = form.GetNumber();
+                _statsHandler.Course = form.GetNumber();
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -136,7 +138,7 @@ namespace ConsoleApp.Printers
                 Min = 1,
                 Max = 2
             };
-            _handler.Semester = form.GetNumber();
+            _statsHandler.Semester = form.GetNumber();
         }
 
         public void UpdateTypeOfStudy()
@@ -147,7 +149,7 @@ namespace ConsoleApp.Printers
                 Name = "type of study"
             };
             foreach (var value in enumValues)
-                menu.Items.Add((value, () => _student.TypeOfStudy = (TypeOfStudy)Enum.Parse(typeof(TypeOfStudy), value)));
+                menu.Items.Add((value, () => _statsHandler.TypeOfStudy = (TypeOfStudy)Enum.Parse(typeof(TypeOfStudy), value)));
             menu.Print();
         }
 
@@ -190,11 +192,11 @@ namespace ConsoleApp.Printers
             {
                 Parser = double.TryParse,
                 Name = "mark",
-                Min = _student.Marks.Min,
-                Max = _student.Marks.Max,
+                Min = _marksHandler.Min,
+                Max = _marksHandler.Max,
                 StringHandler = s => s.Replace('.', ',')
             };
-            _student.Marks.Update(nameForm.GetString(), markForm.GetNumber());
+            _marksHandler.Update(nameForm.GetString(), markForm.GetNumber());
             Console.WriteLine($"The marks have been successfully updated");
         }
 
@@ -209,7 +211,7 @@ namespace ConsoleApp.Printers
             try
             {
                 var chosenCourse = nameForm.GetString();
-                _student.Marks.Delete(chosenCourse);
+                _marksHandler.Delete(chosenCourse);
                 Console.WriteLine($"The {chosenCourse} has been successfully deleted");
             }
             catch (KeyNotFoundException exc)
