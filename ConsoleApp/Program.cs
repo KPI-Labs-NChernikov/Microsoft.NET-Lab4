@@ -16,3 +16,4 @@ var mainMenu = new Menu
 foreach (var institution in institutions)
     mainMenu.Items.Add((institution.Name, () => new EducationalInstitutionPrinter(institution).Print()));
 mainMenu.Print();
+Console.ResetColor();
