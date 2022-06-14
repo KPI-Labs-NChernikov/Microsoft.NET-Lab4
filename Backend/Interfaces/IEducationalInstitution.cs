@@ -4,12 +4,12 @@ namespace Backend.Interfaces
 {
     public interface IEducationalInstitution
     {
-        public string Name { get; set; }
+        string Name { get; set; }
 
-        public IEnumerable<IStudent> Students { get; }
+        IEnumerable<IStudent> Students { get; }
 
-        public IEnumerable<IStudent> GetOrderedStudents(StudentOrderingType orderBy, StudentOrderingType? thenBy);
+        IEnumerable<IStudent> GetOrderedStudents(StudentOrderingType orderBy, StudentOrderingType? thenBy);
 
-        public void RemoveStudent(IStudent student);
+        void RemoveStudent(IStudent student);
     }
 }

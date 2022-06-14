@@ -2,11 +2,11 @@
 {
     public interface IMarksContainer
     {
-        public double Min { get; set; }
+        double Min { get; set; }
 
-        public double Max { get; set; }
+        double Max { get; set; }
 
-        public IReadOnlyDictionary<string, double> Marks { get; }
+        IReadOnlyDictionary<string, double> Marks { get; }
 
         void Add(string course, double mark);
 
