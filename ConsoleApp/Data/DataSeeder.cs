@@ -15,16 +15,16 @@ namespace ConsoleApp.Data
 {
     public class DataSeeder : IDataSeeder
     {
-        public ICollection<EducationalInstitution> Institutions { get; }
+        public ICollection<IEducationalInstitution> Institutions { get; }
 
-        public DataSeeder(ICollection<EducationalInstitution> institutions)
+        public DataSeeder(ICollection<IEducationalInstitution> institutions)
         {
             Institutions = institutions ?? throw new ArgumentNullException(nameof(institutions));
         }
 
         public void SeedData()
         {
-            var institution = new EducationalInstitution
+            var university = new EducationalInstitution<UniversityStudent>
             {
                 Name = "National Technical University of Ukraine \"Igor Sikorsky Kyiv Polytechnic Institute\""
             };
@@ -116,10 +116,10 @@ namespace ConsoleApp.Data
                 },
             };
             foreach (var student in universityStudents)
-                institution.Students.Add(student);
-            Institutions.Add(institution);
+                university.Students.Add(student);
+            Institutions.Add(university);
 
-            institution = new EducationalInstitution
+            var school = new EducationalInstitution<SchoolStudent>
             {
                 Name = "Specialized school №71 with English specialization"
             };
@@ -229,8 +229,8 @@ namespace ConsoleApp.Data
                 }
             };
             foreach (var student in schoolStudents)
-                institution.Students.Add(student);
-            Institutions.Add(institution);
+                school.Students.Add(student);
+            Institutions.Add(school);
         }
     }
 }

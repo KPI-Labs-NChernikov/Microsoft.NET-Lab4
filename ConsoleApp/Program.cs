@@ -1,11 +1,11 @@
-﻿using Backend;
+﻿using Backend.Interfaces;
 using ConsoleApp.Data;
 using ConsoleApp.Helpers;
 using ConsoleApp.Interfaces;
 using ConsoleApp.Printers;
 
 Console.ForegroundColor = ConsoleColor.DarkGreen;
-var institutions = new List<EducationalInstitution>();
+var institutions = new List<IEducationalInstitution>();
 IDataSeeder seeder = new DataSeeder(institutions);
 seeder.SeedData();
 var mainMenu = new Menu

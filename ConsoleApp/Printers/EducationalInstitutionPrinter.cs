@@ -10,12 +10,12 @@ namespace ConsoleApp.Printers
 {
     public class EducationalInstitutionPrinter : IPrinter
     {
-        private readonly EducationalInstitution _institution;
+        private readonly IEducationalInstitution _institution;
 
         private IEnumerable<IStudent> Students 
             => _institution.GetOrderedStudents(StudentOrderingType.CourseAsc, StudentOrderingType.AvgMarkDesc);
 
-        public EducationalInstitutionPrinter(EducationalInstitution institution)
+        public EducationalInstitutionPrinter(IEducationalInstitution institution)
         {
             _institution = institution ?? throw new ArgumentNullException(nameof(institution));
         }
@@ -25,7 +25,7 @@ namespace ConsoleApp.Printers
             Console.Clear();
             HelperMethods.PrintHeader(HelperMethods.GetHeader("Institution"));
             Console.WriteLine($"Name: {_institution.Name}");
-            Console.WriteLine($"Students count: {_institution.Students.Count}");
+            Console.WriteLine($"Students count: {_institution.Students.Count()}");
             var menu = new LiteMenu
             {
                 IsQuitable = true,
@@ -76,38 +76,40 @@ namespace ConsoleApp.Printers
         {
             Console.Clear();
             HelperMethods.PrintHeader(HelperMethods.GetHeader($"{_institution.Name}: Students - Add"));
-            var student = SelectStudentType();
-            Console.WriteLine();
-            var printer = new StudentPrinter(student);
-            printer.UpdateName();
-            Console.WriteLine();
-            printer.UpdateCourse();
-            Console.WriteLine();
-            printer.UpdateSemester();
-            Console.WriteLine();
-            printer.UpdateTypeOfStudy();
-            Console.WriteLine();
-            _institution.Students.Add(student);
-            Console.WriteLine("The student has been successfully added:");
-            printer.Print();
+            IStudent? student = null;
+            Action? add = null;
+            if (_institution is EducationalInstitution<UniversityStudent> university)
+            {
+                student = new UniversityStudent();
+                add = () => university.Students.Add((UniversityStudent)student);
+            }
+            else if (_institution is EducationalInstitution<SchoolStudent> school)
+            {
+                student = new SchoolStudent();
+                add = () => school.Students.Add((SchoolStudent)student);
+            }
+            else
+            {
+                HelperMethods.PrintErrorMessage("Not able to define a type of student");
+            }
+            if (student != null && add != null)
+            {
+                Console.WriteLine();
+                var printer = new StudentPrinter(student);
+                printer.UpdateName();
+                Console.WriteLine();
+                printer.UpdateCourse();
+                Console.WriteLine();
+                printer.UpdateSemester();
+                Console.WriteLine();
+                printer.UpdateTypeOfStudy();
+                Console.WriteLine();
+                add.Invoke();
+                Console.WriteLine("The student has been successfully added:");
+                printer.Print();
+            }
             Console.WriteLine();
             HelperMethods.Continue();
-        }
-
-        private static IStudent SelectStudentType()
-        {
-            IStudent result = null!;
-            var menu = new LiteMenu
-            {
-                Name = "type of the student",
-                Items = new List<(string, Action?)>
-                {
-                    ("University student", () => result = new UniversityStudent()),
-                    ("School student", () => result = new SchoolStudent())
-                }
-            };
-            menu.Print();
-            return result;
         }
 
         public void UpdateStudents()
@@ -136,7 +138,7 @@ namespace ConsoleApp.Printers
             var form = new NumberForm<int>()
             {
                 Min = 0,
-                Max = _institution.Students.Count,
+                Max = _institution.Students.Count(),
                 Parser = int.TryParse,
                 Name = "students's number or 0 to quit"
             };
@@ -155,7 +157,7 @@ namespace ConsoleApp.Printers
                     Question = $"Are you sure you want to delete a student {name}",
                     YAction = () =>
                     {
-                        _institution.Students.Remove(student);
+                        _institution.RemoveStudent(student);
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                         Console.WriteLine($"Student {name} has been successfully deleted");
                         HelperMethods.Continue();

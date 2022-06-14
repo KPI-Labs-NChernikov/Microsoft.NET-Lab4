@@ -1,10 +1,10 @@
-﻿using Backend;
+﻿using Backend.Interfaces;
 
 namespace ConsoleApp.Interfaces
 {
     public interface IDataSeeder
     {
-        ICollection<EducationalInstitution> Institutions { get; }
+        ICollection<IEducationalInstitution> Institutions { get; }
 
         void SeedData();
     }
